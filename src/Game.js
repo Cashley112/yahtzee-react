@@ -67,6 +67,15 @@ class Game extends Component {
   }
 
   render() {
+    const rollButton = 
+      <button
+        className='Game-reroll'
+        disabled={this.state.locked.every(x => x)}
+        onClick={this.roll}
+      >
+        {this.state.rollsLeft} Rerolls Left
+      </button>
+      const h3Style = { color: 'white' };
     return (
       <div className='Game'>
         <header className='Game-header'>
@@ -79,13 +88,7 @@ class Game extends Component {
               handleClick={this.toggleLocked}
             />
             <div className='Game-button-wrapper'>
-              <button
-                className='Game-reroll'
-                disabled={this.state.locked.every(x => x)}
-                onClick={this.roll}
-              >
-                {this.state.rollsLeft} Rerolls Left
-              </button>
+              {this.state.rollsLeft > 0 ? rollButton : <h3 style={h3Style}>Pick a Category</h3>}
             </div>
           </section>
         </header>
