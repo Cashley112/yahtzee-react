@@ -5,10 +5,22 @@ import { ones, twos, threes, fours, fives, sixes, threeOfKind, fourOfKind, fullH
 
 
 class ScoreTable extends Component {
-
+  totalScore() {
+    const { scores } = this.props;
+    const scoreObj = scores;
+    const scoreArr = Object.values(scoreObj);
+    let total = 0;
+    if (scoreArr.some(x => x !== undefined)) {
+      total = scoreArr
+        .filter(x => x !== undefined)
+        .reduce((prev, curr) => prev + curr)
+      ;
+    };
+    return total;
+  }
   render() {
     const { scores, doScore } = this.props;
-
+    
     return (
       <div className='ScoreTable'>
         <section className='ScoreTable-section'>
@@ -106,6 +118,7 @@ class ScoreTable extends Component {
               />
             </tbody>
           </table>
+              <h2>Total Score: {this.totalScore()}</h2>
         </section>
       </div>
     )
