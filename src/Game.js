@@ -34,6 +34,7 @@ class Game extends Component {
     this.doScore = this.doScore.bind(this);
     this.toggleLocked = this.toggleLocked.bind(this);
     this.animateRoll = this.animateRoll.bind(this);
+    this.totalScore = this.totalScore.bind(this);
   }
 
   componentDidMount() {
@@ -82,6 +83,19 @@ class Game extends Component {
     // this.roll();
   }
 
+  totalScore() {
+    const scoreObj = this.state.scores;
+    const scoreArr = Object.values(scoreObj);
+    let total = 0;
+    if (scoreArr.some(x => x !== undefined)) {
+      total = scoreArr
+        .filter(x => x !== undefined)
+        .reduce((prev, curr) => prev + curr)
+    ;
+    }
+    return total;
+  }
+
   render() {
     return (
       <div className='Game'>
@@ -112,6 +126,9 @@ class Game extends Component {
           </section>
         </header>
         <ScoreTable doScore={this.doScore} scores={this.state.scores} />
+        <h2>Total Score: </h2>
+        {this.totalScore()}
+
       </div>
     );
   }
