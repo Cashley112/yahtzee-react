@@ -91,9 +91,19 @@ class Game extends Component {
       total = scoreArr
         .filter(x => x !== undefined)
         .reduce((prev, curr) => prev + curr)
-    ;
-    }
+      ;
+    };
     return total;
+  }
+
+  displayRollInfo() { 
+    const messages = [
+      'O Rolls Left',
+      '1 Roll Left',
+      '2 Rolls Left',
+      'Starting Round'
+    ]
+    return messages[this.state.rollsLeft]
   }
 
   render() {
@@ -116,11 +126,13 @@ class Game extends Component {
               <button
                 className='Game-reroll'
                 disabled={
-                  this.state.locked.every(x => x) || this.state.rollsLeft === 0
+                  this.state.locked.every(x => x) || 
+                  this.state.rollsLeft === 0 ||
+                  this.state.rolling
                 }
                 onClick={this.animateRoll}
               >
-                {this.state.rollsLeft} Rerolls Left
+                {this.displayRollInfo()}
               </button>
             </div>
           </section>
